@@ -5,7 +5,32 @@ import './App.css';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-class SiderDemo extends React.Component {
+class KeyBox extends Component {
+  render() {
+    let type = this.props.keyType || "text";
+    return (
+      <div>
+        {this.props.keyName}：
+        <input type={type} />
+      </div>
+    )
+  }
+}
+
+class KeyBoxRow extends Component {
+  render() {
+    let boxes = this.props.boxes.map((box) => {
+      return<KeyBox keyName={box.name} keyType={box.type} />
+    });
+    return (
+      <div>
+        {boxes}
+      </div>
+    );
+  }
+}
+
+class App extends Component {
   state = {
     collapsed: false,
   };
@@ -69,43 +94,9 @@ class SiderDemo extends React.Component {
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>Bill is a cat.</div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }}>DBS Lab3 ©2019 Created by XZQ</Footer>
         </Layout>
       </Layout>
-    );
-  }
-}
-
-class KeyBox extends Component {
-  render() {
-    let type = this.props.keyType || "text";
-    return (
-      <div>
-        {this.props.keyName}：
-        <input type={type} />
-      </div>
-    )
-  }
-}
-
-class KeyBoxRow extends Component {
-  render() {
-    let boxes = this.props.boxes.map((box) => {
-      return<KeyBox keyName={box.name} keyType={box.type} />
-    });
-    return (
-      <div>
-        {boxes}
-      </div>
-    );
-  }
-}
-
-
-class App extends Component {
-  render() {
-    return (
-      <SiderDemo />
     );
   }
 }

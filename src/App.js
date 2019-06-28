@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div>
           <BrowserRouter>
-              <Layout>
+              <Layout style={{ minHeight: '100vh' }}>
                   <Sider>
                       <CustomMenu/>
                   </Sider>

@@ -6,7 +6,6 @@ class KeyBox extends Component {
     this.state = {
       value: "xzq"
     };
-    this.props.key = "key" || this.props.key;
   }
 
   handleChange(event) {

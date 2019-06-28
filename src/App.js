@@ -1,24 +1,12 @@
 import React,{ Component} from 'react';
 
 class KeyBox extends Component {
-  constructor() {
-    super();
-    this.state = {
-      value: ""
-    };
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
   render() {
-    console.log(this.props)
+    this.props.keyType = this.props.keyType || "text";
     return (
       <div>
-        {this.props.keyname}:
-        <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
-        <input type="date" />
-        <button type="submit">Submit</button>
+        {this.props.keyName}:
+        <input type={this.props.keyType} />
       </div>
     )
   }
@@ -27,7 +15,11 @@ class KeyBox extends Component {
 
 function App() {
   return (
-    <KeyBox keyname="iioioio"/>
+    <form>
+      <KeyBox keyName="iioioio" />
+      <KeyBox keyName="日期" keyType="date"/>
+    </form>
+    
   );
 }
 

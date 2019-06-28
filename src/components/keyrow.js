@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import { Input } from 'antd';
 const InputGroup = Input.Group;
 

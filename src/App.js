@@ -15,8 +15,10 @@ class KeyBox extends Component {
     console.log(this.props)
     return (
       <div>
-        {this.props.keyy}:
-        <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+        {this.props.keyname}:
+        <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
+        <input type="date" />
+        <button type="submit">Submit</button>
       </div>
     )
   }
@@ -25,7 +27,7 @@ class KeyBox extends Component {
 
 function App() {
   return (
-    <KeyBox keyy="iioioio"/>
+    <KeyBox keyname="iioioio"/>
   );
 }
 

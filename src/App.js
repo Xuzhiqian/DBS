@@ -5,10 +5,23 @@ class KeyBox extends Component {
     let type = this.props.keyType || "text";
     return (
       <div>
-        {this.props.keyName}:
+        {this.props.keyName}：
         <input type={type} />
       </div>
     )
+  }
+}
+
+class KeyBoxRow extends Component {
+  render() {
+    let boxes = this.props.boxes.map((box) => {
+      return<KeyBox keyName={box.name} keyType={box.type} />
+    });
+    return (
+      <div>
+        {boxes}
+      </div>
+    );
   }
 }
 

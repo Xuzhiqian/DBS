@@ -8,17 +8,6 @@ import './App.css';
 const { Sider, Content } = Layout;
 let screenHeight= window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-class KeyBox extends Component {
-  render() {
-    let type = this.props.keyType || "text";
-    return (
-      <div>
-        {this.props.keyName}：
-        <input type={type} />
-      </div>
-    )
-  }
-}
 
 class App extends Component {
   render() {

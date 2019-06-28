@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 //引入路由
 import {Route, Switch} from 'react-router-dom'
 import Bank from './bank';
-import KeyRow from '.keyrow';
+import KeyRow from './keyrow';
 
 class ContentMain extends Component {
     render() {

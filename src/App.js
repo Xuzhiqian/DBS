@@ -15,7 +15,7 @@ class KeyBox extends Component {
     console.log(this.props)
     return (
       <div>
-        {this.props.key}:
+        {this.props.keyy}:
         <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)}/>
       </div>
     )
@@ -25,7 +25,7 @@ class KeyBox extends Component {
 
 function App() {
   return (
-    <KeyBox key="iioioio"/>
+    <KeyBox keyy="iioioio"/>
   );
 }
 

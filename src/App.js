@@ -15,12 +15,12 @@ class App extends Component {
       <div>
           <BrowserRouter>
               <Layout>
-                  <Sider style={{height:screenHeight}}>
+                  <Sider>
                       <CustomMenu/>
                   </Sider>
                   <Layout>
                       {/*<Header>Header</Header>*/}
-                      <Content style={{height:screenHeight}}>
+                      <Content>
                           <ContentMain/>
                       </Content>
                       {/*<Footer>Footer</Footer>*/}

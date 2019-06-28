@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 //引入路由
 import {Route, Switch} from 'react-router-dom'
 import KeyRow from './keyrow';
 
-class ContentMain extends React.Component {
+class ContentMain extends Component {
     render() {
         return (
             <div>

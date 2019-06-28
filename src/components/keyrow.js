@@ -5,7 +5,7 @@ const InputGroup = Input.Group;
 class KeyRow extends Component {
   render() {
     let _keys = this.props.keys || [{ keyName: "test" }];
-    let keys = this.props.keys.map((k) => {
+    let keys = _keys.map((k) => {
       return <Input addonBefore={k.keyName} />
     });
       

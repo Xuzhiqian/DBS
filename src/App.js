@@ -4,7 +4,7 @@ class KeyBox extends Component {
   constructor() {
     super();
     this.state = {
-      value: "xzq"
+      value: ""
     };
   }
 
@@ -12,6 +12,7 @@ class KeyBox extends Component {
     this.setState({ value: event.target.value });
   }
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.props.key}:

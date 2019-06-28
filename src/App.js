@@ -1,4 +1,6 @@
-import React,{ Component} from 'react';
+import React, { Component } from 'react';
+import Button from 'antd/es/button';
+import './App.css';
 
 class KeyBox extends Component {
   render() {
@@ -26,14 +28,14 @@ class KeyBoxRow extends Component {
 }
 
 
-function App() {
-  return (
-    <form>
-      <KeyBox keyName="iioioio" />
-      <KeyBox keyName="日期" keyType="date"/>
-    </form>
-    
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Button type="primary">Button</Button>
+      </div>
+    );
+  }
 }
 
 export default App;

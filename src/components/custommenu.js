@@ -6,14 +6,35 @@ const menus = [
         title: '支行管理',
         icon: 'page',
         key: '/'
-    }, {
-        title: '人员管理',
-        icon: 'user',
-        key: '/person',
-        subs: [
-            { key: '/page/AlertDemo', title: '弹出框', icon: '' },
-        ]
     },
+    {
+        title: '员工管理',
+        icon: 'user',
+        key: '/person'
+        //subs: [
+         //   { key: '/page/AlertDemo', title: '弹出框', icon: '' },
+        //]
+    },
+    {
+        title: '客户管理',
+        icon: 'user',
+        key: "/customer"
+    },
+    {
+        title: '账户管理',
+        icon: 'user',
+        key: '/account'
+    },
+    {
+        title: '贷款管理',
+        icon: 'user',
+        key: '/debt'
+    },
+    {
+        title: '业务统计',
+        icon: 'pie-chart',
+        key: '/stat'
+    }
 ];
 
 //此组件的意义就是将数据抽离出来，通过传递数据去渲染

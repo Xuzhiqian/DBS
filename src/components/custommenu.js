@@ -42,7 +42,8 @@ class CustomMenu extends Component {
     }
     render() {
         return (
-                <Menu
+            <Menu
+                theme="dark"
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"

@@ -39,7 +39,7 @@ let edit_info = [
 class Bank extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}};
+        this.state = { add: {}, find: {}, edit: {} };
     }
 
     handleChange(type, e) {

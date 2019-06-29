@@ -21,7 +21,7 @@ class Bank extends Component {
     }
 
     handleChange(e) {
-        console.log(e);
+        console.log(e.target);
         this.setState({ add: { value: e.target.value } });
     }
 

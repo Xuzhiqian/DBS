@@ -106,7 +106,7 @@ class Bank extends Component {
                     </Form.Item>
                 </Form>
                 <div id="bank_table" />
-                <EditableTable data='[{"B_Name":"qqqq","B_City":"qwww","B_ID":7}]' col={[{title:"B_Name"},{title:"B_city"},{title:"B_ID"}]}/>
+                <EditableTable data={[{ "B_Name": "qqqq", "B_City": "qwww", "B_ID": 7 }]} col={[{ title: "B_Name" }, { title: "B_city" }, { title: "B_ID" }]}/>
             </div>      
         )    
     }  

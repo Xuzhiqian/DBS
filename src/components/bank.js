@@ -17,12 +17,17 @@ let info = [
 class Bank extends Component {
 
     add = e => {
-        console.log(e);
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
     };
 
     render() {
         let add = info.map((k,index) => {
-            return <Form.Item><Input addonBefore={k.keyName} key={index}/></Form.Item>
+            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()}/></Form.Item>
         });
         return (
             <div>
@@ -30,7 +35,7 @@ class Bank extends Component {
                 <Form layout="inline" onSubmit={this.add}>
                     {add}
                     <Form.Item>
-                        <Input type="submit" value="添加"/>
+                        <Button type="primary" htmlType="submit">添加</Button>
                     </Form.Item>
                 </Form>
             </div>      

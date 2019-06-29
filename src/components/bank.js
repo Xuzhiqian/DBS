@@ -20,7 +20,7 @@ let info = [
 class Bank extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}};
+        this.state = { add: {}, find: {}};
     }
 
     handleChange(e) {
@@ -32,8 +32,8 @@ class Bank extends Component {
         let st = Object.assign({}, this.state, m);
         this.setState(st);
         console.log(this.state);
-        console.log(m);
-        console.log(e.target.belong);
+        console.log(e);
+        console.log(e.target);
     }
 
     add() {

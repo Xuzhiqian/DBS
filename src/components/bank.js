@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import io from "socket.io";
+import socket from '.socket';
 
 let info = [
     {
@@ -31,7 +31,7 @@ class Bank extends Component {
     }
 
     add() {
-        io.connect();
+        socket.emit("xzq");
         /*
         let b = this.state.add;
         let conn = connection.connection();
@@ -41,6 +41,10 @@ class Bank extends Component {
                 console.log(err);
             }
         });*/
+
+        socket.on("fuck", () => {
+            console.log("fuck");
+        });
     }
 
     render() {

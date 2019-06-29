@@ -77,11 +77,13 @@ class Bank extends Component {
     }
 
     edit() {
+        console.log(b);
         let b = this.state.edit;
         let sql = 'CALL editBankInfos(' + (!b.bankName ? "null" : this.wrap(b.bankName))
             + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
             + ',' + (!b.newBankID ? "null" : this.wrap(b.newBankID))
             + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
+        console.log(sql);
         socket.emit("edit", sql);
         socket.once("edit_resp", ((msg) => {
             alert(msg);

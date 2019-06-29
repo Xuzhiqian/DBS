@@ -6,7 +6,6 @@ import ContentMain from "./components/contentmain";
 import './App.css';
 
 const { Sider, Content } = Layout;
-let screenHeight= window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
 
 class App extends Component {

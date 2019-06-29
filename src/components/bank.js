@@ -21,8 +21,8 @@ class Bank extends Component {
     };
 
     render() {
-        let add = info.map((k) => {
-            return <Form.Item><Input addonBefore={k.keyName} /></Form.Item>
+        let add = info.map((k,index) => {
+            return <Form.Item><Input addonBefore={k.keyName} key={index}/></Form.Item>
         });
         return (
             <div>
@@ -30,7 +30,7 @@ class Bank extends Component {
                 <Form layout="inline" onSubmit={this.add}>
                     {add}
                     <Form.Item>
-                        <Button type="primary">添加</Button>
+                        <Button type="submit">添加</Button>
                     </Form.Item>
                 </Form>
             </div>      

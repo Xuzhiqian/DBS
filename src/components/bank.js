@@ -30,7 +30,7 @@ class Bank extends Component {
 
     render() {
         let add = info.map((k,index) => {
-            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()} onChange={this.handleChange}/></Form.Item>
+            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()} onChange={this.handleChange.bind(this)}/></Form.Item>
         });
         return (
             <div>

@@ -31,7 +31,7 @@ let edit_info = [
         keyName: 'ID'
     },
     {
-        ley: 'newBankID',
+        key: 'newBankID',
         keyName: '新ID'
     }
 ];

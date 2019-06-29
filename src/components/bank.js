@@ -17,6 +17,24 @@ let info = [
         keyName: 'ID'
     }
 ];
+let edit_info = [
+    {
+        key: 'bankName',
+        keyName: '支行名称'
+    },
+    {
+        key: 'bankCity',
+        keyName: '地点'
+    },
+    {
+        key: 'bankID',
+        keyName: 'ID'
+    },
+    {
+        ley: 'newBankID',
+        keyName: '新ID'
+    }
+];
 
 class Bank extends Component {
     constructor(props) {
@@ -24,21 +42,12 @@ class Bank extends Component {
         this.state = { add: {}, find: {}};
     }
 
-    handleChangeAdd(e) {
+    handleChange(e, type) {
         let st = Object.assign({}, this.state);
         if (!e.target.value)
-            delete st['add'][e.target.name];
+            delete st[type][e.target.name];
         else
-            st['add'][e.target.name] = e.target.value;
-        this.setState(st);
-    }
-
-    handleChangeFind(e) {
-        let st = Object.assign({}, this.state);
-        if (!e.target.value)
-            delete st['find'][e.target.name];
-        else
-            st['find'][e.target.name] = e.target.value;
+            st[type][e.target.name] = e.target.value;
         this.setState(st);
     }
 
@@ -52,13 +61,30 @@ class Bank extends Component {
             + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
             + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
         socket.emit("add", sql);
+        socket.once("add_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
     }
 
     del(e) {
         let sql = 'CALL deleteBank(' + e.B_ID + ');';
         socket.emit("del", sql);
-        socket.once("del_resp", ((obj) => {
-            alert(obj.msg);
+        socket.once("del_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    edit() {
+        let b = this.state.edit;
+        let sql = 'CALL editBankInfos(' + (!b.bankName ? "null" : this.wrap(b.bankName))
+            + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
+            + ',' + (!b.newBankID ? "null" : this.wrap(b.newBankID))
+            + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
+        socket.emit("edit", sql);
+        socket.once("edit_resp", ((msg) => {
+            alert(msg);
             this.find();
         }).bind(this));
     }
@@ -92,10 +118,13 @@ class Bank extends Component {
 
     render() {
         let add = info.map((k) => {
-            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChangeAdd.bind(this)}/></Form.Item>
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'add')}/></Form.Item>
         });
         let find = info.map((k) => {
-            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChangeFind.bind(this)}/></Form.Item>
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'find')}/></Form.Item>
+        });
+        let edit = edit_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'edit')}/></Form.Item>
         });
         return (
             <div>
@@ -107,6 +136,13 @@ class Bank extends Component {
                     </Form.Item>
                 </Form>
                 <br />
+                <h1>修改信息</h1>
+                <Form layout="inline">
+                    {edit}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.edit.bind(this)}>修改</Button>
+                    </Form.Item>
+                </Form>
                 <h1>精确查询</h1>
                 <Form layout="inline">
                     {find}

@@ -8,3 +8,9 @@
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
+
+.editable-row .ant-form-explain {
+  position: absolute;
+  font-size: 12px;
+  margin-top: -4px;
+}

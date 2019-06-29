@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import socket from '../socket';
+import EditableTable from './table';
 
 let info = [
     {
@@ -70,7 +71,13 @@ class Bank extends Component {
         }
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
-            console.log(JSON.parse(res)); 
+            let col = [
+                { title: "B_Name" },
+                { title: "B_City" },
+                { title: "B_ID" }
+            ];
+            const table = Form.Create()(EditableTable, col, JSON.parse(res));
+            ReactDOM.rander(<table />, document.getElementById("bank_table"));
         });
     }
 
@@ -97,6 +104,7 @@ class Bank extends Component {
                         <Button type="primary" onClick={this.find.bind(this)}>查询</Button>
                     </Form.Item>
                 </Form>
+                <div id="bank_table"/>
             </div>      
         )    
     }  

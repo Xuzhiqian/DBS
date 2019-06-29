@@ -77,7 +77,7 @@ class Bank extends Component {
                 { title: "B_City" },
                 { title: "B_ID" }
             ];
-            ReactDOM.rander(<EditableTable data={JSON.parse(res)} col={col}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<EditableTable data={JSON.parse(res)} col={col}/>, document.getElementById("bank_table"));
         });
     }
 

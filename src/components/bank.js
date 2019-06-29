@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Table } from 'antd';
 import socket from '../socket';
-import EditableTable from './table';
 
 let info = [
     {
@@ -72,14 +71,15 @@ class Bank extends Component {
         }
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
-            res = res.replace(/null/g, "");
+            res = JSON.parse(res.replace(/null/g, ""));
             let col = [
-                { title: "B_Name" },
-                { title: "B_City" },
-                { title: "B_ID" }
+                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" },
+                { title: "B_City",dataIndex: "B_City",key:"B_City"},
+                { title: "B_ID",dataIndex: "B_ID",key:"B_ID" }
             ];
-            const table = Form.create()(EditableTable, col, JSON.parse(res));
-            ReactDOM.render(<table />, document.getElementById("bank_table"));
+            for (let d in res)
+                res[d].key = d.toString();
+            ReactDOM.render(<Table columns={col} dataSource={res}/>, document.getElementById("bank_table"));
         });
     }
 

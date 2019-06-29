@@ -68,9 +68,9 @@ class Bank extends Component {
             console.log(res);
             res = JSON.parse(res.replace(/"null"/g, '""'));
             let col = [
-                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" ,width:"30%"},
-                { title: "B_City",dataIndex: "B_City",key:"B_City",width:"30%"},
-                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" ,width:"30%"},
+                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" ,width:"33%"},
+                { title: "B_City",dataIndex: "B_City",key:"B_City",width:"33%"},
+                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" ,width:"33%"},
                 {
                     title: "Action", key: "operation", width:"10%",fixed: "right", render: () => 
                         <Button>删除</Button>
@@ -78,7 +78,7 @@ class Bank extends Component {
             ];
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:1000, y:500 }}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'130%', y:500 }}/>, document.getElementById("bank_table"));
         });
     }
 
@@ -98,7 +98,7 @@ class Bank extends Component {
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
                     </Form.Item>
                 </Form>
-                <br></br>
+                <br />
                 <h1>精确查询</h1>
                 <Form layout="inline">
                     {find}
@@ -106,6 +106,7 @@ class Bank extends Component {
                         <Button type="primary" onClick={this.find.bind(this)}>查询</Button>
                     </Form.Item>
                 </Form>
+                <br />
                 <div id="bank_table" />
             </div>      
         )    

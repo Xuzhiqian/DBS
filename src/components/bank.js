@@ -31,7 +31,14 @@ class Bank extends Component {
     }
 
     add() {
-        console.log(this.state.add);
+        let b = this.state.add;
+        let conn = connection();
+        let sql = 'CALL addBank(' + b.bankName + ',' + b.bankCity + ',' + b.bankID +');';
+        conn.query(sql, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
     }
 
     render() {

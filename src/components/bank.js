@@ -4,12 +4,15 @@ import connection from '../DB';
 
 let info = [
     {
+        key: 'bankName',
         keyName: '支行名称'
     },
     {
+        key: 'bankCity',
         keyName: '地点'
     },
     {
+        key: 'bankID',
         keyName: 'ID'
     }
 ];
@@ -21,8 +24,10 @@ class Bank extends Component {
     }
 
     handleChange(e) {
-        console.log(e.target);
-        this.setState({ add: { value: e.target.value } });
+        let n = {};
+        n[e.target.name] = e.target.value;
+        let adds = Object.assign({}, this.state.add, n);
+        this.setState({ add: adds });
     }
 
     add() {
@@ -31,7 +36,7 @@ class Bank extends Component {
 
     render() {
         let add = info.map((k,index) => {
-            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()} onChange={this.handleChange.bind(this)}/></Form.Item>
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this)}/></Form.Item>
         });
         return (
             <div>

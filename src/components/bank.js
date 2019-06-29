@@ -32,6 +32,8 @@ class Bank extends Component {
         let st = Object.assign({}, this.state, m);
         this.setState(st);
         console.log(this.state);
+        console.log(m);
+        console.log(e.target);
     }
 
     add() {

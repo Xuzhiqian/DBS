@@ -72,13 +72,13 @@ class Bank extends Component {
                 { title: "B_City",dataIndex: "B_City",key:"B_City"},
                 { title: "B_ID", dataIndex: "B_ID", key: "B_ID" },
                 {
-                    title: "Action", key: "operation", width:100,fixed: "right", render: () => 
+                    title: "Action", key: "operation", fixed: "right", render: () => 
                         <Button>删除</Button>
                 }
             ];
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} scroll={{ y:500 }}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:1000, y:500 }}/>, document.getElementById("bank_table"));
         });
     }
 

@@ -38,7 +38,7 @@ class Bank extends Component {
                 <Form layout="inline">
                     {add}
                     <Form.Item>
-                        <Button type="primary" onClick={this.add}>添加</Button>
+                        <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
                     </Form.Item>
                 </Form>
             </div>      

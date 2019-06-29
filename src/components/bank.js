@@ -23,17 +23,21 @@ class Bank extends Component {
         this.state = { add: {}, find: {}};
     }
 
-    handleChange(e) {
+    handleChangeAdd(e) {
         let n = {};
         if (!e.target.value) return;
         n[e.target.name] = e.target.value;
-        let m = {};
-        m[e.target.belong] = n;
-        let st = Object.assign({}, this.state, m);
+        let st = Object.assign({}, this.state, { 'add': n });
+        this.setState(st);
+    }
+
+    handleChangeFind(e) {
+        let n = {};
+        if (!e.target.value) return;
+        n[e.target.name] = e.target.value;
+        let st = Object.assign({}, this.state, { 'find': n });
         this.setState(st);
         console.log(this.state);
-        console.log(e);
-        console.log(e.target);
     }
 
     add() {
@@ -64,11 +68,11 @@ class Bank extends Component {
     }
 
     render() {
-        let add = info.map((k,index) => {
-            return <Form.Item><Input belong="add" name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this)}/></Form.Item>
+        let add = info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChangeAdd.bind(this)}/></Form.Item>
         });
-        let find = info.map((k, index) => {
-            return <Form.Item><Input belong="find" name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this)}/></Form.Item>
+        let find = info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChangeFind.bind(this)}/></Form.Item>
         });
         return (
             <div>

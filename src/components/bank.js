@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Icon, Input, Button, Table } from 'antd';
+import { Form, Input, Button, Table } from 'antd';
 import socket from '../socket';
 
 let info = [

@@ -15,23 +15,30 @@ let info = [
 ];
 
 class Bank extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { add: {}};
+    }
 
-    add = e => {
-        e.preventDefault();
-        console.log(this.props.form);
-    };
+    handleChange(e) {
+        this.setState({ add: { value: event.target.value } });
+    }
+
+    add() {
+        console.log(this.state.add);
+    }
 
     render() {
         let add = info.map((k,index) => {
-            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()}/></Form.Item>
+            return <Form.Item><Input addonBefore={k.keyName} key={index.toString()} onChange={this.handleChange}/></Form.Item>
         });
         return (
             <div>
                 <h1>添加支行</h1>
-                <Form layout="inline" onSubmit={this.add}>
+                <Form layout="inline">
                     {add}
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">添加</Button>
+                        <Button type="primary" onClick={this.add}>添加</Button>
                     </Form.Item>
                 </Form>
             </div>      

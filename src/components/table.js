@@ -5,7 +5,7 @@ import '../App.css';
 
 const EditableContext = React.createContext();
 
-class EditableCell extends React.Component {
+class EditableCell extends Component {
   getInput = () => {
     return <Input />;
   };
@@ -48,14 +48,11 @@ class EditableCell extends React.Component {
 }
 
 class EditableTable extends Component {
-    constructor(prop) {
+    constructor(prop, col, data) {
         super(prop);
-        let data = Object.assign([], this.props.data);
-        let col = Object.assign([], this.props.col);
         for (let d in data)
             data[d].key = d.toString();
         this.state = { data, editingKey: '' };
-        console.log(this.state);
         this.columns = [];
         for (let c in col) {
             this.columns.push({

@@ -40,8 +40,8 @@ class EditableCell extends React.Component {
 class EditableTable extends Component {
     constructor(prop) {
         super(prop);
-        let data = Object.assign({}, this.props.data);
-        let col = Object.assign({}, this.props.col);
+        let data = Object.assign([], this.props.data);
+        let col = Object.assign([], this.props.col);
         for (let d in data)
             data[d].key = d.toString();
         this.state = { data, editingKey: '' };

@@ -77,9 +77,8 @@ class Bank extends Component {
                 { title: "B_City",dataIndex: "B_City",key:"B_City"},
                 { title: "B_ID", dataIndex: "B_ID", key: "B_ID" },
                 {
-                    title: "Action", key: "operation", fixed: "right", width: 100, render: () => {
+                    title: "Action", key: "operation", fixed: "right", width: 100, render: () => 
                         <Button>删除</Button>
-                    }
                 }
             ];
             for (let d in res)

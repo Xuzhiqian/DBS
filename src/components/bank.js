@@ -32,8 +32,11 @@ class Bank extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL addBank(' + b.bankName + ',' + b.bankCity + ',' + b.bankID +');';
+        let sql = 'CALL addBank("' + b.bankName + '","' + b.bankCity + '",' + b.bankID +');';
         socket.emit("add", sql);
+        socket.on("add_err", (m) => {
+            alert(m);
+        });
     }
 
     render() {

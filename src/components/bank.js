@@ -75,11 +75,16 @@ class Bank extends Component {
             let col = [
                 { title: "B_Name",dataIndex: "B_Name",key:"B_Name" },
                 { title: "B_City",dataIndex: "B_City",key:"B_City"},
-                { title: "B_ID",dataIndex: "B_ID",key:"B_ID" }
+                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" },
+                {
+                    title: "Action", key: "operation", fixed: "right", width: 100, render: () => {
+                        <Button>删除</Button>
+                    }
+                }
             ];
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x: 1000 }}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered={true} scroll={{ x: 1000 }}/>, document.getElementById("bank_table"));
         });
     }
 
@@ -99,6 +104,7 @@ class Bank extends Component {
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
                     </Form.Item>
                 </Form>
+                <br></br>
                 <h1>精确查询</h1>
                 <Form layout="inline">
                     {find}

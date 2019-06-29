@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import socket from '../socket';
 import EditableTable from './table';

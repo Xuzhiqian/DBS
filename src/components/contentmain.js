@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router-dom'
 import Bank from './bank';
 import KeyRow from './keyrow';
 import Person from './person';
+import Customer from './customer';
 
 class ContentMain extends Component {
     render() {
@@ -12,7 +13,7 @@ class ContentMain extends Component {
                 <Switch>
                     <Route exact path='/' component={Bank}/>
                     <Route exact path='/person' component={Person} />
-                    <Route exact path='/customer' component={KeyRow} />
+                    <Route exact path='/customer' component={Customer} />
                     <Route exact path='/account' component={KeyRow} />
                     <Route exact path='/debt' component={KeyRow} />
                     <Route exact path='/stat' component={KeyRow} />

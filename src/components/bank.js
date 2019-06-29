@@ -20,11 +20,11 @@ let info = [
 let edit_info = [
     {
         key: 'bankName',
-        keyName: '支行名称'
+        keyName: '新支行名称'
     },
     {
         key: 'bankCity',
-        keyName: '地点'
+        keyName: '新地点'
     },
     {
         key: 'bankID',

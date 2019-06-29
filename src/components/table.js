@@ -42,11 +42,11 @@ class EditableTable extends Component {
         super(prop);
         let data = Object.assign({}, this.props.data);
         let col = Object.assign({}, this.props.col);
-        for (d in data)
+        for (let d in data)
             data[d].key = d.toString();
         this.state = { data, editingKey: '' };
         this.columns = [];
-        for (c in col) {
+        for (let c in col) {
             this.columns.push({
                 title: c.title,
                 editable: true,

@@ -24,7 +24,17 @@ class EditableCell extends React.Component {
     return (
       <td {...restProps}>
         {editing ? (
-          <Form.Item style={{ margin: 0 }}/>
+                <Form.Item style={{ margin: 0 }}>
+                {getFieldDecorator(dataIndex, {
+                    rules: [
+                      {
+                        required: false,
+                        message: `Please Input ${title}!`,
+                      },
+                    ],
+                    initialValue: record[dataIndex],
+                })(this.getInput())}
+                    </Form.Item>
         ) : (
           children
         )}

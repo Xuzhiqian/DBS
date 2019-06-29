@@ -78,7 +78,7 @@ class Bank extends Component {
             ];
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered={true} scroll={{ x: 1000,y:500 }}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} scroll={{ x: 1000,y:500 }}/>, document.getElementById("bank_table"));
         });
     }
 

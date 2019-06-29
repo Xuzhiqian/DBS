@@ -71,7 +71,7 @@ class Bank extends Component {
         }
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
-            res = JSON.parse(res.replace(/null/g, ""));
+            res = JSON.parse(res.replace(/null/g, '""'));
             let col = [
                 { title: "B_Name",dataIndex: "B_Name",key:"B_Name" },
                 { title: "B_City",dataIndex: "B_City",key:"B_City"},
@@ -79,7 +79,7 @@ class Bank extends Component {
             ];
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x: 1000 }}/>, document.getElementById("bank_table"));
         });
     }
 

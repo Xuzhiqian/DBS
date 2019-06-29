@@ -23,7 +23,11 @@ const menus = [
     {
         title: '账户管理',
         icon: 'user',
-        key: '/account'
+        key: '/account',
+        subs: [
+            { key: '/account/bank', title: '储蓄账户' },
+            { key: '/account/cheque', title: '支票账户' }
+        ]
     },
     {
         title: '贷款管理',

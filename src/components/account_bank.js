@@ -5,86 +5,86 @@ import socket from '../socket';
 
 let info = [
     {
-        key: 'customerID',
-        keyName: '客户ID',
-        dcol:'C_ID'
+        key: 'acountID',
+        keyName: '账户ID',
+        dcol:'E_ID'
     },
     {
-        key: 'customerName',
+        key: 'bankID',
+        keyName: '支行ID',
+        dcol:'B_ID'
+    },
+    {
+        key: 'staffName',
         keyName: '姓名',
-        dcol:'C_Name'
+        dcol:'E_Name'
     },
     {
-        key: 'customerPhone',
+        key: 'staffPhone',
         keyName: '电话',
-        dcol:'C_Phone'
+        dcol:'E_Phone'
     },
     {
-        key: 'customerAddr',
+        key: 'staffAddr',
         keyName: '地址',
-        dcol:'C_Addr'
+        dcol:'E_Addr'
     },
     {
-        key: 'personName',
-        keyName: '联系人姓名',
-        dcol:'P_Name'
+        key: 'staffStation',
+        keyName: 'Station',
+        dcol:'E_Station'
     },
     {
-        key: 'personPhone',
-        keyName: '联系人电话',
-        dcol:'P_Phone'
+        key: 'staffTime',
+        keyName: '入职时间',
+        dcol:'E_STime'
     },
     {
-        key: 'personEmail',
-        keyName: '联系人邮箱',
-        dcol:'P_Email'
-    },
-    {
-        key: 'personRelationship',
-        keyName: '联系人关系',
-        dcol:'P_Relationship'
+        key: 'staffDepartment',
+        keyName: '部门',
+        dcol:'E_Department'
     }
 ];
 let edit_info = [
     {
-        key: 'customerID',
-        keyName: '客户ID'
+        key: 'staffID',
+        keyName: '员工ID'
     },
     {
-        key: 'newcustomerID',
+        key: 'newstaffID',
         keyName: '新ID'
     },
     {
-        key: 'customerName',
+        key: 'bankID',
+        keyName: '新支行ID'
+    },
+    {
+        key: 'staffName',
         keyName: '新姓名'
     },
     {
-        key: 'customerPhone',
+        key: 'staffPhone',
         keyName: '新电话'
     },
     {
-        key: 'customerAddr',
+        key: 'staffAddr',
         keyName: '新地址'
     },
     {
-        key: 'personName',
-        keyName: '新联系人姓名'
+        key: 'staffStation',
+        keyName: '新Station'
     },
     {
-        key: 'personPhone',
-        keyName: '新联系人电话'
+        key: 'staffTime',
+        keyName: '新入职时间'
     },
     {
-        key: 'personEmail',
-        keyName: '新联系人邮箱'
-    },
-    {
-        key: 'personRelationship',
-        keyName: '新关系'
+        key: 'staffDepartment',
+        keyName: '新部门'
     }
 ];
 
-class Customer extends Component {
+class Person extends Component {
     constructor(props) {
         super(props);
         this.state = { add: {}, find: {}, edit: {} };
@@ -105,7 +105,7 @@ class Customer extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL addCustomer(';
+        let sql = 'CALL addStaff(';
         for (let i = 0; i < info.length; i++) {
             sql = sql + (!b[info[i].key] ? "null" : this.wrap(b[info[i].key]));
             if (i < info.length - 1)
@@ -121,7 +121,7 @@ class Customer extends Component {
     }
 
     del(e) {
-        let sql = 'CALL deleteCustomer(' + e.C_ID + ');';
+        let sql = 'CALL deleteStaff(' + e.E_ID + ');';
         socket.emit("del", sql);
         socket.once("del_resp", ((msg) => {
             alert(msg);
@@ -132,28 +132,16 @@ class Customer extends Component {
     edit() {
         let b = this.state.edit;
         console.log(b);
-        let sql = 'CALL editCustomerInfos('; 
-        for (let i = 0; i < 5; i++) {
+        let sql = 'CALL editStaffInfos('; 
+        for (let i = 0; i < edit_info.length; i++) {
             sql = sql + (!b[edit_info[i].key] ? "null" : this.wrap(b[edit_info[i].key]));
-            if (i < 4)
+            if (i < edit_info.length - 1)
                 sql = sql + ',';
             else
                 sql = sql + ');'
         }
+        console.log(sql);
         socket.emit("edit", sql);
-
-        sql = 'CALL editPersonInfos(';
-        sql = sql + (!b[edit_info[0].key] ? "null" : this.wrap(b[edit_info[0].key]));
-        sql = sql + ',';
-        for (let i = 5; i < 9; i++) {
-            sql = sql + (!b[edit_info[i].key] ? "null" : this.wrap(b[edit_info[i].key]));
-            if (i < 8)
-                sql = sql + ',';
-            else
-                sql = sql + ');'
-        }
-        socket.emit("edit", sql);
-
         socket.once("edit_resp", ((msg) => {
             alert(msg);
             this.find();
@@ -162,7 +150,7 @@ class Customer extends Component {
 
     find() {
         let b = this.state.find;
-        let obj = ['customer'];
+        let obj = ['staff'];
 
         for (let i = 0; i < info.length; i++)
             if (b[info[i].key])
@@ -202,7 +190,7 @@ class Customer extends Component {
         });
         return (
             <div>
-                <h1>添加客户</h1>
+                <h1>添加员工</h1>
                 <Form layout="inline">
                     {add}
                     <Form.Item>
@@ -232,4 +220,4 @@ class Customer extends Component {
     }  
 }
   
-export default Customer;
+export default Person;

@@ -33,7 +33,7 @@ class Bank extends Component {
         this.setState(st);
         console.log(this.state);
         console.log(m);
-        console.log(e.target);
+        console.log(e.target.belong);
     }
 
     add() {

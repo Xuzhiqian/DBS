@@ -68,11 +68,11 @@ class Bank extends Component {
             console.log(res);
             res = JSON.parse(res.replace(/"null"/g, '""'));
             let col = [
-                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" },
-                { title: "B_City",dataIndex: "B_City",key:"B_City"},
-                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" },
+                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" ,width:"30%"},
+                { title: "B_City",dataIndex: "B_City",key:"B_City",width:"30%"},
+                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" ,width:"30%"},
                 {
-                    title: "Action", key: "operation", fixed: "right", render: () => 
+                    title: "Action", key: "operation", width:"10%",fixed: "right", render: () => 
                         <Button>删除</Button>
                 }
             ];

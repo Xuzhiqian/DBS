@@ -54,6 +54,10 @@ class Bank extends Component {
         socket.emit("add", sql);
     }
 
+    del(e) {
+        console.log(e.target);
+    }
+
     find() {
         let b = this.state.find;
         let obj = ['bank'];
@@ -73,7 +77,7 @@ class Bank extends Component {
                 { title: "B_ID", dataIndex: "B_ID", key: "B_ID" ,width:"30%"},
                 {
                     title: "Action", key: "operation", width:"10%", render: () => 
-                        <Button>删除</Button>
+                        <Button onClick={this.del.bind(this)}>删除</Button>
                 }
             ];
             for (let d in res)

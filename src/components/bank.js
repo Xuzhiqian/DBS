@@ -77,8 +77,7 @@ class Bank extends Component {
                 { title: "B_City" },
                 { title: "B_ID" }
             ];
-            const table = Form.Create()(EditableTable, col, JSON.parse(res));
-            ReactDOM.rander(<table />, document.getElementById("bank_table"));
+            ReactDOM.rander(<EditableTable data={JSON.parse(res)} col={col}/>, document.getElementById("bank_table"));
         });
     }
 

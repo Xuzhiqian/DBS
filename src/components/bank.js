@@ -43,10 +43,9 @@ class Bank extends Component {
 
     add() {
         let b = this.state.add;
-        if (b.bankName === 'undefined') b.bankName = "null";
-        if (b.bankCity === 'undefined') b.bankCity = "null";
-        if (b.bankID === 'undefined') b.bankID = "null";
-        let sql = 'CALL addBank("' + b.bankName + '","' + b.bankCity + '",' + b.bankID +');';
+        let sql = 'CALL addBank("' + (b.bankName === 'undefined' ? "null" : b.bankName)
+            + '","' + (b.bankCity === 'undefined' ? "null" : b.bankCity)
+            + '",' + (b.bankID === 'undefined' ? "null" : b.bankID) + ');';
         socket.emit("add", sql);
     }
 

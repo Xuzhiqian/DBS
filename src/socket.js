@@ -9,6 +9,10 @@ function getSocket(){
         console.log("socket. 连接成功");
     });
 
+    io.on("err", (m) => {
+        alert(m);
+    });
+
     return io;
 }
 

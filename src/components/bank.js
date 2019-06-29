@@ -41,12 +41,19 @@ class Bank extends Component {
         this.setState(st);
     }
 
+    wrap(str) {
+        return '"' + str + '"';
+    }
+
     add() {
         let b = this.state.add;
-        let sql = 'CALL addBank("' + (!b.bankName ? "null" : b.bankName)
-            + '","' + (!b.bankCity ? "null" : b.bankCity)
-            + '",' + (!b.bankID ? "null" : b.bankID) + ');';
+        let sql = 'CALL addBank(' + (!b.bankName ? "null" : wrap(b.bankName))
+            + ',' + (!b.bankCity ? "null" : wrap(b.bankCity))
+            + ',' + (!b.bankID ? "null" : wrap(b.bankID)) + ');';
         socket.emit("add", sql);
+        socket.once("add_ok", () => {
+            alert("添加成功！");
+        });
     }
 
     find() {

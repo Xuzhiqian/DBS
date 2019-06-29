@@ -5,38 +5,86 @@ import socket from '../socket';
 
 let info = [
     {
-        key: 'bankName',
-        keyName: '支行名称'
-    },
-    {
-        key: 'bankCity',
-        keyName: '地点'
+        key: 'staffID',
+        keyName: '员工ID',
+        dcol:'E_ID'
     },
     {
         key: 'bankID',
-        keyName: 'ID'
+        keyName: '支行ID',
+        dcol:'B_ID'
+    },
+    {
+        key: 'staffName',
+        keyName: '姓名',
+        dcol:'E_Name'
+    },
+    {
+        key: 'staffPhone',
+        keyName: '电话',
+        dcol:'E_Phone'
+    },
+    {
+        key: 'staffAddr',
+        keyName: '地址',
+        dcol:'E_Addr'
+    },
+    {
+        key: 'staffStation',
+        keyName: 'Station',
+        dcol:'E_Station'
+    },
+    {
+        key: 'staffTime',
+        keyName: '入职时间',
+        dcol:'E_STime'
+    },
+    {
+        key: 'staffDepartment',
+        keyName: '部门',
+        dcol:'E_Department'
     }
 ];
 let edit_info = [
     {
-        key: 'bankName',
-        keyName: '新支行名称'
+        key: 'staffID',
+        keyName: '员工ID'
     },
     {
-        key: 'bankCity',
-        keyName: '新地点'
+        key: 'newstaffID',
+        keyName: '新ID'
     },
     {
         key: 'bankID',
-        keyName: 'ID'
+        keyName: '新支行ID'
     },
     {
-        key: 'newBankID',
-        keyName: '新ID'
+        key: 'staffName',
+        keyName: '新姓名'
+    },
+    {
+        key: 'staffPhone',
+        keyName: '新电话'
+    },
+    {
+        key: 'staffAddr',
+        keyName: '新地址'
+    },
+    {
+        key: 'staffStation',
+        keyName: '新Station'
+    },
+    {
+        key: 'staffTime',
+        keyName: '新入职时间'
+    },
+    {
+        key: 'staffDepartment',
+        keyName: '新部门'
     }
 ];
 
-class Bank extends Component {
+class Person extends Component {
     constructor(props) {
         super(props);
         this.state = { add: {}, find: {}, edit: {} };
@@ -57,9 +105,14 @@ class Bank extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL addBank(' + (!b.bankName ? "null" : this.wrap(b.bankName))
-            + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
-            + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
+        let sql = 'CALL addStaff(';
+        for (let i = 0; i < info.length; i++) {
+            sql = sql + (!b[info[i].key] ? "null" : this.wrap(b[info[i].key]));
+            if (i < info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
         socket.emit("add", sql);
         socket.once("add_resp", ((msg) => {
             alert(msg);
@@ -68,7 +121,7 @@ class Bank extends Component {
     }
 
     del(e) {
-        let sql = 'CALL deleteBank(' + e.B_ID + ');';
+        let sql = 'CALL deleteStaff(' + e.E_ID + ');';
         socket.emit("del", sql);
         socket.once("del_resp", ((msg) => {
             alert(msg);
@@ -79,10 +132,14 @@ class Bank extends Component {
     edit() {
         let b = this.state.edit;
         console.log(b);
-        let sql = 'CALL editBankInfos(' + (!b.bankName ? "null" : this.wrap(b.bankName))
-            + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
-            + ',' + (!b.newBankID ? "null" : this.wrap(b.newBankID))
-            + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
+        let sql = 'CALL editStaffInfos('; 
+        for (let i = 0; i < edit_info.length; i++) {
+            sql = sql + (!b[edit_info[i].key] ? "null" : this.wrap(b[edit_info[i].key]));
+            if (i < edit_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
         console.log(sql);
         socket.emit("edit", sql);
         socket.once("edit_resp", ((msg) => {
@@ -93,28 +150,31 @@ class Bank extends Component {
 
     find() {
         let b = this.state.find;
-        let obj = ['bank'];
-        if (b.bankName)
-            obj.push([ 'B_Name', b.bankName ]);
-        if (b.bankCity)
-            obj.push([ 'B_City', b.bankCity ]);
-        if (b.bankID)
-            obj.push([ 'B_ID', b.bankID ]);
+        let obj = ['staff'];
+
+        for (let i = 0; i < info.length; i++)
+            if (b[info[i].key])
+                obj.push([info[i].dcol, b[info[i].key]]);
+        
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
             res = JSON.parse(res.replace(/"null"/g, '""'));
-            let col = [
-                { title: "B_Name",dataIndex: "B_Name",key:"B_Name" ,width:"30%"},
-                { title: "B_City",dataIndex: "B_City",key:"B_City",width:"30%"},
-                { title: "B_ID", dataIndex: "B_ID", key: "B_ID" ,width:"30%"},
-                {
-                    title: "Action", key: "operation", width: "10%", render: (e) =>
+
+            let col = [];
+            for (let i = 0; i < info.length; i++)
+                col.push({
+                    title: info[i].dcol,
+                    dataIndex: info[i].dcol,
+                    key: info[i].dcol,
+                    width:"10%"
+                });
+            col.push({
+                title: "Action", key: "operation", width: "10%", render: (e) =>
                         <Button onClick={this.del.bind(this, e)}>删除</Button>
-                }
-            ];
+            });
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("bank_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("person_table"));
         });
     }
 
@@ -130,7 +190,7 @@ class Bank extends Component {
         });
         return (
             <div>
-                <h1>添加支行</h1>
+                <h1>添加员工</h1>
                 <Form layout="inline">
                     {add}
                     <Form.Item>
@@ -154,10 +214,10 @@ class Bank extends Component {
                     </Form.Item>
                 </Form>
                 <br />
-                <div id="bank_table" />
+                <div id="person_table" />
             </div>      
         )    
     }  
 }
   
-export default Bank
+export default Person;

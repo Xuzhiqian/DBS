@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {Route, Switch} from 'react-router-dom'
 import Bank from './bank';
 import KeyRow from './keyrow';
+import Person from '../person';
 
 class ContentMain extends Component {
     render() {
@@ -10,7 +11,7 @@ class ContentMain extends Component {
             <div>
                 <Switch>
                     <Route exact path='/' component={Bank}/>
-                    <Route exact path='/person' component={KeyRow} />
+                    <Route exact path='/person' component={Person} />
                     <Route exact path='/customer' component={KeyRow} />
                     <Route exact path='/account' component={KeyRow} />
                     <Route exact path='/debt' component={KeyRow} />

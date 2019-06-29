@@ -56,7 +56,7 @@ class Bank extends Component {
 
     del(e) {
         console.log(e);
-        let sql = 'CALL deleteBank(' + e.bankID + ');';
+        let sql = 'CALL deleteBank(' + e.B_ID + ');';
         socket.emit("del", sql);
         socket.once("del_resp", (obj) => {
             alert(obj.msg);

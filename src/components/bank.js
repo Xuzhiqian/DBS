@@ -31,6 +31,7 @@ class Bank extends Component {
         m[e.target.belong] = n;
         let st = Object.assign({}, this.state, m);
         this.setState(st);
+        console.log(this.state);
     }
 
     add() {

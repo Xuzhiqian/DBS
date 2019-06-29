@@ -30,7 +30,7 @@ class Bank extends Component {
                 <Form layout="inline" onSubmit={this.add}>
                     {add}
                     <Form.Item>
-                        <Button type="submit">添加</Button>
+                        <Input type="submit" value="添加"/>
                     </Form.Item>
                 </Form>
             </div>      

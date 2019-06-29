@@ -27,10 +27,10 @@ class Bank extends Component {
         return (
             <div>
                 <h1>添加支行</h1>
-                <Form layout="inline">
+                <Form layout="inline" onSubmit={this.add}>
                     {add}
                     <Form.Item>
-                        <Button type="primary" onClick={this.add}>添加</Button>
+                        <Button type="primary">添加</Button>
                     </Form.Item>
                 </Form>
             </div>      

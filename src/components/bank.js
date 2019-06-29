@@ -57,18 +57,12 @@ class Bank extends Component {
     find() {
         let b = this.state.find;
         let obj = ['bank'];
-        if (b.bankName) {
-            obj.push('B_Name');
-            obj.push(b.bankName);
-        }
-        if (b.bankCity) {
-            obj.push('B_City');
-            obj.push(b.bankCity);
-        }
-        if (b.bankID) {
-            obj.push('B_ID');
-            obj.push(b.bankID);
-        }
+        if (b.bankName)
+            obj.push([ 'B_Name', b.bankName ]);
+        if (b.bankCity)
+            obj.push([ 'B_City', b.bankCity ]);
+        if (b.bankID)
+            obj.push([ 'B_ID', b.bankID ]);
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
             console.log(res);

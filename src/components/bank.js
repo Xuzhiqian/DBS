@@ -24,16 +24,20 @@ class Bank extends Component {
     }
 
     handleChangeAdd(e) {
-        if (!e.target.value) return;
         let st = Object.assign({}, this.state);
-        st['add'][e.target.name] = e.target.value;
+        if (!e.target.value)
+            delete st['add'][e.target.name];
+        else
+            st['add'][e.target.name] = e.target.value;
         this.setState(st);
     }
 
     handleChangeFind(e) {
-        if (!e.target.value) return;
         let st = Object.assign({}, this.state);
-        st['find'][e.target.name] = e.target.value;
+        if (!e.target.value)
+            delete st['find'][e.target.name];
+        else
+            st['find'][e.target.name] = e.target.value;
         this.setState(st);
         console.log(st);
     }

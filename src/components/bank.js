@@ -51,9 +51,6 @@ class Bank extends Component {
             + ',' + (!b.bankCity ? "null" : this.wrap(b.bankCity))
             + ',' + (!b.bankID ? "null" : this.wrap(b.bankID)) + ');';
         socket.emit("add", sql);
-        socket.once("add_ok", () => {
-            alert("添加成功！");
-        });
     }
 
     find() {

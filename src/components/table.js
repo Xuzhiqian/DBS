@@ -55,6 +55,7 @@ class EditableTable extends Component {
         for (let d in data)
             data[d].key = d.toString();
         this.state = { data, editingKey: '' };
+        console.log(this.state);
         this.columns = [];
         for (let c in col) {
             this.columns.push({

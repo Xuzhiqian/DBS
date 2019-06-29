@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import connection from '../DB';
+import io from "socket.io";
 
 let info = [
     {
@@ -31,6 +31,8 @@ class Bank extends Component {
     }
 
     add() {
+        io.connect();
+        /*
         let b = this.state.add;
         let conn = connection.connection();
         let sql = 'CALL addBank(' + b.bankName + ',' + b.bankCity + ',' + b.bankID +');';
@@ -38,7 +40,7 @@ class Bank extends Component {
             if (err) {
                 console.log(err);
             }
-        });
+        });*/
     }
 
     render() {

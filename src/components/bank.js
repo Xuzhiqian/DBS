@@ -43,24 +43,24 @@ class Bank extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL addBank("' + (b.bankName === 'undefined' ? "null" : b.bankName)
-            + '","' + (b.bankCity === 'undefined' ? "null" : b.bankCity)
-            + '",' + (b.bankID === 'undefined' ? "null" : b.bankID) + ');';
+        let sql = 'CALL addBank("' + (!b.bankName ? "null" : b.bankName)
+            + '","' + (!b.bankCity ? "null" : b.bankCity)
+            + '",' + (!b.bankID ? "null" : b.bankID) + ');';
         socket.emit("add", sql);
     }
 
     find() {
         let b = this.state.find;
         let obj = ['bank'];
-        if (b.bankName !== 'undefined') {
+        if (b.bankName) {
             obj.push('B_Name');
             obj.push(b.bankName);
         }
-        if (b.bankCity !== 'undefined') {
+        if (b.bankCity) {
             obj.push('B_City');
             obj.push(b.bankCity);
         }
-        if (b.bankID !== 'undefined') {
+        if (b.bankID) {
             obj.push('B_ID');
             obj.push(b.bankID);
         }

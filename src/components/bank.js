@@ -72,6 +72,7 @@ class Bank extends Component {
         }
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
+            res = res.replace(/null/g, "");
             let col = [
                 { title: "B_Name" },
                 { title: "B_City" },

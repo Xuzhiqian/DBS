@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {Route, Switch} from 'react-router-dom'
 import Bank from './bank';
 import KeyRow from './keyrow';
-import Person from '../person';
+import Person from './person';
 
 class ContentMain extends Component {
     render() {

@@ -42,7 +42,7 @@ class Bank extends Component {
         this.state = { add: {}, find: {}};
     }
 
-    handleChange(e, type) {
+    handleChange(type, e) {
         let st = Object.assign({}, this.state);
         if (!e.target.value)
             delete st[type][e.target.name];

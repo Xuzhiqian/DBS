@@ -57,6 +57,7 @@ class Stat extends Component {
                     else {
                         t[year].loan += r.PM;
                         t[year].user.add(r.C_ID);
+                        console.log(t[year].user);
                     }
                 }
                 let l = [];
@@ -66,7 +67,7 @@ class Stat extends Component {
                         ID:id,
                         time: y,
                         loan: t[y].loan,
-                        user: t[y].user
+                        user: t[y].user.size
                     });
                 data.push({
                     key: key_counter++,

@@ -33,18 +33,18 @@ class Stat extends Component {
         socket.emit("stat", sql);
         socket.once("stat_result", (obj) => {
             obj = JSON.parse(obj); 
-            bank = {};
+            let bank = {};
             obj.forEach((row) => {
                 if (!bank[row.B_ID])
                     bank[row.B_ID] = [row];
                 else
                     bank[row.B_ID].push(row);
             });
-            data = [];
-            key_counter = 1;
+            let data = [];
+            let key_counter = 1;
 
             for (let id in bank) {
-                t = {};
+                let t = {};
                 for (let row in bank[id]) {
                     let r = bank[id][row];
                     let year = new Date(r.PDate).getFullYear();
@@ -55,7 +55,7 @@ class Stat extends Component {
                         t[year].user.add(r.C_ID);
                     }
                 }
-                l = [];
+                let l = [];
                 for (let y in t)
                     l.push({
                         key:key_counter++,

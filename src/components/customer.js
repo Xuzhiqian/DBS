@@ -186,7 +186,7 @@ class Customer extends Component {
             });
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("person_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("customer_table"));
         });
     }
 
@@ -226,7 +226,7 @@ class Customer extends Component {
                     </Form.Item>
                 </Form>
                 <br />
-                <div id="person_table" />
+                <div id="customer_table" />
             </div>      
         )    
     }  

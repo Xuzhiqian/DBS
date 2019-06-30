@@ -25,7 +25,7 @@ const menus = [
         icon: 'user',
         key: '/account',
         subs: [
-            { key: '/account/bank', title: '储蓄账户' },
+            { key: '/account/saving', title: '储蓄账户' },
             { key: '/account/cheque', title: '支票账户' }
         ]
     },

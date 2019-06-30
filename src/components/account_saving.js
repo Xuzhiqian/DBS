@@ -7,6 +7,11 @@ let info = [
     {
         key: 'acountID',
         keyName: '账户ID',
+        dcol:'ID'
+    },
+    {
+        key: 'staffID',
+        keyName: '负责人ID',
         dcol:'E_ID'
     },
     {
@@ -15,76 +20,32 @@ let info = [
         dcol:'B_ID'
     },
     {
-        key: 'staffName',
-        keyName: '姓名',
-        dcol:'E_Name'
+        key: 'customerID',
+        keyName: '客户ID',
+        dcol:'C_ID'
     },
     {
-        key: 'staffPhone',
-        keyName: '电话',
-        dcol:'E_Phone'
-    },
-    {
-        key: 'staffAddr',
-        keyName: '地址',
-        dcol:'E_Addr'
-    },
-    {
-        key: 'staffStation',
-        keyName: 'Station',
-        dcol:'E_Station'
-    },
-    {
-        key: 'staffTime',
-        keyName: '入职时间',
-        dcol:'E_STime'
-    },
-    {
-        key: 'staffDepartment',
-        keyName: '部门',
-        dcol:'E_Department'
+        key: 'currencyTypeIn',
+        keyName: '货币类型',
+        dcol:'CurrencyType'
     }
 ];
 let edit_info = [
     {
-        key: 'staffID',
-        keyName: '员工ID'
+        key: 'accountID',
+        keyName: '账户ID'
     },
     {
-        key: 'newstaffID',
-        keyName: '新ID'
+        key: 'rateIn',
+        keyName: '新利率'
     },
     {
-        key: 'bankID',
-        keyName: '新支行ID'
-    },
-    {
-        key: 'staffName',
-        keyName: '新姓名'
-    },
-    {
-        key: 'staffPhone',
-        keyName: '新电话'
-    },
-    {
-        key: 'staffAddr',
-        keyName: '新地址'
-    },
-    {
-        key: 'staffStation',
-        keyName: '新Station'
-    },
-    {
-        key: 'staffTime',
-        keyName: '新入职时间'
-    },
-    {
-        key: 'staffDepartment',
-        keyName: '新部门'
+        key: 'currencyTypeIn',
+        keyName: '新货币类型'
     }
 ];
 
-class Person extends Component {
+class Saving extends Component {
     constructor(props) {
         super(props);
         this.state = { add: {}, find: {}, edit: {} };
@@ -105,7 +66,7 @@ class Person extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL addStaff(';
+        let sql = 'CALL createSavingAccount(';
         for (let i = 0; i < info.length; i++) {
             sql = sql + (!b[info[i].key] ? "null" : this.wrap(b[info[i].key]));
             if (i < info.length - 1)
@@ -121,7 +82,7 @@ class Person extends Component {
     }
 
     del(e) {
-        let sql = 'CALL deleteStaff(' + e.E_ID + ');';
+        let sql = 'CALL deleteAcount(' + e.ID + ');';
         socket.emit("del", sql);
         socket.once("del_resp", ((msg) => {
             alert(msg);
@@ -132,7 +93,7 @@ class Person extends Component {
     edit() {
         let b = this.state.edit;
         console.log(b);
-        let sql = 'CALL editStaffInfos('; 
+        let sql = 'CALL editSavingInfos('; 
         for (let i = 0; i < edit_info.length; i++) {
             sql = sql + (!b[edit_info[i].key] ? "null" : this.wrap(b[edit_info[i].key]));
             if (i < edit_info.length - 1)
@@ -150,8 +111,8 @@ class Person extends Component {
 
     find() {
         let b = this.state.find;
-        let obj = ['staff'];
-
+        let obj = ['account_open_record,saving_account'];
+        obj.push(['saving_account.ID', 'account_open_record.ID']);
         for (let i = 0; i < info.length; i++)
             if (b[info[i].key])
                 obj.push([info[i].dcol, b[info[i].key]]);
@@ -174,7 +135,7 @@ class Person extends Component {
             });
             for (let d in res)
                 res[d].key = d.toString();
-            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("person_table"));
+            ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("account_table"));
         });
     }
 
@@ -190,7 +151,7 @@ class Person extends Component {
         });
         return (
             <div>
-                <h1>添加员工</h1>
+                <h1>添加账户</h1>
                 <Form layout="inline">
                     {add}
                     <Form.Item>
@@ -214,10 +175,10 @@ class Person extends Component {
                     </Form.Item>
                 </Form>
                 <br />
-                <div id="person_table" />
+                <div id="account_table" />
             </div>      
         )    
     }  
 }
   
-export default Person;
+export default Saving;

@@ -48,7 +48,7 @@ let find_info = [
     },
     {
         key: 'Quota',
-        keyName: '余额',
+        keyName: '透支额',
         dcol: 'Quota'
     }
 ];

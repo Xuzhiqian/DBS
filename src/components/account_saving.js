@@ -52,11 +52,6 @@ let find_info = [
         dcol:'C_ID'
     },
     {
-        key: 'Balance',
-        keyName: '余额',
-        dcol: 'Balance'
-    },
-    {
         key: 'Rate',
         keyName: '利率',
         dcol: 'Rate'

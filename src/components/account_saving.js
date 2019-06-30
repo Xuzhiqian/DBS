@@ -92,6 +92,17 @@ let save_info = [
     }
 ];
 
+let take_info = [
+    {
+        key: 'acountID',
+        keyName:'账户ID'
+    },
+    {
+        key: 'moneyNum',
+        keyName:'取款金额'
+    }
+];
+
 class Saving extends Component {
     constructor(props) {
         super(props);
@@ -200,8 +211,8 @@ class Saving extends Component {
             else
                 sql = sql + ');'
         }
-        socket.emit("take", sql);
-        socket.once("take_resp", ((msg) => {
+        socket.emit("save", sql);
+        socket.once("save_resp", ((msg) => {
             alert(msg);
             this.find();
         }).bind(this));
@@ -210,15 +221,15 @@ class Saving extends Component {
     take() {
         let b = this.state.take;
         let sql = 'CALL takeMoney(';
-        for (let i = 0; i < save_info.length; i++) {
-            sql = sql + (!b[save_info[i].key] ? "null" : this.wrap(b[save_info[i].key]));
-            if (i < save_info.length - 1)
+        for (let i = 0; i < take_info.length; i++) {
+            sql = sql + (!b[take_info[i].key] ? "null" : this.wrap(b[take_info[i].key]));
+            if (i < take_info.length - 1)
                 sql = sql + ',';
             else
                 sql = sql + ');'
         }
-        socket.emit("save", sql);
-        socket.once("save_resp", ((msg) => {
+        socket.emit("take", sql);
+        socket.once("take_resp", ((msg) => {
             alert(msg);
             this.find();
         }).bind(this));
@@ -237,7 +248,7 @@ class Saving extends Component {
         let save = save_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'save')}/></Form.Item>
         });
-        let take = save_info.map((k) => {
+        let take = take_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'take')}/></Form.Item>
         });
         return (
@@ -258,19 +269,19 @@ class Saving extends Component {
                     </Form.Item>
                 </Form>
                 <br />
-                <h1>存钱</h1>
+                <h1>存款</h1>
                 <Form layout="inline">
                     {save}
                     <Form.Item>
-                        <Button type="primary" onClick={this.save.bind(this)}>储存</Button>
+                        <Button type="primary" onClick={this.save.bind(this)}>存款</Button>
                     </Form.Item>
                 </Form>
                 <br />
-                <h1>取钱</h1>
+                <h1>取款</h1>
                 <Form layout="inline">
                     {take}
                     <Form.Item>
-                        <Button type="primary" onClick={this.take.bind(this)}>取钱</Button>
+                        <Button type="primary" onClick={this.take.bind(this)}>取款</Button>
                     </Form.Item>
                 </Form>
                 <br />

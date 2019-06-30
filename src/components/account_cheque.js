@@ -53,10 +53,32 @@ let find_info = [
     }
 ];
 
+let draw_info = [
+    {
+        key: 'acountID',
+        keyName:'账户ID'
+    },
+    {
+        key: 'moneyNum',
+        keyName:'透支额'
+    }
+];
+
+let repay_info = [
+    {
+        key: 'acountID',
+        keyName:'账户ID'
+    },
+    {
+        key: 'moneyNum',
+        keyName:'还款额'
+    }
+];
+
 class Cheque extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}, edit: {} };
+        this.state = { add: {}, find: {}, edit: {}, draw: {}, repay: {} };
     }
 
     handleChange(type, e) {
@@ -93,6 +115,40 @@ class Cheque extends Component {
         let sql = 'CALL deleteAcount(' + e.ID + ');';
         socket.emit("del", sql);
         socket.once("del_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    draw() {
+        let b = this.state.draw;
+        let sql = 'CALL overdrawMoney(';
+        for (let i = 0; i < draw_info.length; i++) {
+            sql = sql + (!b[draw_info[i].key] ? "null" : this.wrap(b[draw_info[i].key]));
+            if (i < draw_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("draw", sql);
+        socket.once("draw_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    repay() {
+        let b = this.state.repay;
+        let sql = 'CALL repayMoney(';
+        for (let i = 0; i < repay_info.length; i++) {
+            sql = sql + (!b[repay_info[i].key] ? "null" : this.wrap(b[repay_info[i].key]));
+            if (i < repay_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("repay", sql);
+        socket.once("repay_resp", ((msg) => {
             alert(msg);
             this.find();
         }).bind(this));
@@ -138,6 +194,12 @@ class Cheque extends Component {
         let find = find_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'find')}/></Form.Item>
         });
+        let draw = draw_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'draw')}/></Form.Item>
+        });
+        let repay = repay_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'repay')}/></Form.Item>
+        });
         return (
             <div>
                 <h1>添加账户</h1>
@@ -145,6 +207,22 @@ class Cheque extends Component {
                     {add}
                     <Form.Item>
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>透支</h1>
+                <Form layout="inline">
+                    {draw}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.draw.bind(this)}>透支</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>储蓄账户还款</h1>
+                <Form layout="inline">
+                    {repay}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.repay.bind(this)}>还款</Button>
                     </Form.Item>
                 </Form>
                 <br />

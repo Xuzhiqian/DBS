@@ -62,11 +62,25 @@ let find_info = [
         dcol:'LO_State'
     }
 ];
+let pay_info = [
+    {
+        key: 'loanID',
+        keyName: '贷款ID'
+    },
+    {
+        key: 'payment',
+        keyName:'发放金额'
+    },
+    {
+        key: 'payDate',
+        keyName:'发放日期'
+    }
+];
 
 class Loan extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}, edit: {} };
+        this.state = { add: {}, find: {}, pay: {} };
     }
 
     handleChange(type, e) {
@@ -108,6 +122,23 @@ class Loan extends Component {
         }).bind(this));
     }
 
+    pay() {
+        let b = this.state.pay;
+        let sql = 'CALL payLoan(';
+        for (let i = 0; i < pay_info.length; i++) {
+            sql = sql + (!b[pay_info[i].key] ? "null" : this.wrap(b[pay_info[i].key]));
+            if (i < pay_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("pay", sql);
+        socket.once("pay_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
     find() {
         let b = this.state.find;
         let obj = ['loan'];
@@ -142,16 +173,27 @@ class Loan extends Component {
         let add = info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'add')}/></Form.Item>
         });
-        let find = info.map((k) => {
+        let find = find_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'find')}/></Form.Item>
+        });
+        let pay = pay_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'pay')}/></Form.Item>
         });
         return (
             <div>
-                <h1>添加客户</h1>
+                <h1>添加贷款</h1>
                 <Form layout="inline">
                     {add}
                     <Form.Item>
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>发放贷款</h1>
+                <Form layout="inline">
+                    {pay}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.pay.bind(this)}>发放</Button>
                     </Form.Item>
                 </Form>
                 <br />

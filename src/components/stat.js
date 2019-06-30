@@ -57,6 +57,7 @@ class Stat extends Component {
                     else {
                         t[year].loan += r.PM;
                         t[year].user.add(r.C_ID);
+                        console.log(r.C_ID);
                         console.log(t[year].user);
                     }
                 }

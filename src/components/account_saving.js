@@ -52,6 +52,11 @@ let find_info = [
         dcol:'C_ID'
     },
     {
+        key: 'Balance',
+        keyName: '余额',
+        dcol:'Balance'
+    },
+    {
         key: 'Rate',
         keyName: '利率',
         dcol: 'Rate'
@@ -76,11 +81,21 @@ let edit_info = [
         keyName: '新货币类型'
     }
 ];
+let save_info = [
+    {
+        key: 'acountID',
+        keyName:'账户ID'
+    },
+    {
+        key: 'moneyNum',
+        keyName:'储蓄金额'
+    }
+];
 
 class Saving extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}, edit: {} };
+        this.state = { add: {}, find: {}, edit: {}, save: {}, take: {} };
     }
 
     handleChange(type, e) {
@@ -143,8 +158,9 @@ class Saving extends Component {
 
     find() {
         let b = this.state.find;
-        let obj = ['account_open_record,saving_account'];
-        obj.push(['saving_account.ID', 'account_open_record.ID','raw']);
+        let obj = ['account_open_record,saving_account,bank_account'];
+        obj.push(['saving_account.ID', 'account_open_record.ID', 'raw']);
+        obj.push(['saving_account.ID', 'bank_account.ID','raw']);
         for (let i = 0; i < find_info.length; i++)
             if (b[find_info[i].key])
                 if (find_info[i].dcol === 'ID')
@@ -174,6 +190,40 @@ class Saving extends Component {
         });
     }
 
+    save() {
+        let b = this.state.save;
+        let sql = 'CALL saveMoney(';
+        for (let i = 0; i < save_info.length; i++) {
+            sql = sql + (!b[save_info[i].key] ? "null" : this.wrap(b[save_info[i].key]));
+            if (i < save_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("take", sql);
+        socket.once("take_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    take() {
+        let b = this.state.take;
+        let sql = 'CALL takeMoney(';
+        for (let i = 0; i < save_info.length; i++) {
+            sql = sql + (!b[save_info[i].key] ? "null" : this.wrap(b[save_info[i].key]));
+            if (i < save_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("save", sql);
+        socket.once("save_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
     render() {
         let add = info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'add')}/></Form.Item>
@@ -183,6 +233,12 @@ class Saving extends Component {
         });
         let edit = edit_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'edit')}/></Form.Item>
+        });
+        let save = save_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'save')}/></Form.Item>
+        });
+        let take = save_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'take')}/></Form.Item>
         });
         return (
             <div>
@@ -199,6 +255,22 @@ class Saving extends Component {
                     {edit}
                     <Form.Item>
                         <Button type="primary" onClick={this.edit.bind(this)}>修改</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>存钱</h1>
+                <Form layout="inline">
+                    {save}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.save.bind(this)}>储存</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>取钱</h1>
+                <Form layout="inline">
+                    {take}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.take.bind(this)}>取钱</Button>
                     </Form.Item>
                 </Form>
                 <br />

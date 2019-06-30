@@ -166,6 +166,41 @@ class Loan extends Component {
             for (let d in res)
                 res[d].key = d.toString();
             ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("loan_table"));
+        
+        });
+
+        let obj = ['loan_payed'];
+        socket.emit("find", JSON.stringify(obj));
+        socket.once("find_result", (res) => {
+            let col = [
+                {
+                    title: 'LO_ID',
+                    dataIndex: 'LO_ID',
+                    key: 'LO_ID',
+                    width: "25%"
+                },
+                {
+                    title: 'Payment_ID',
+                    dataIndex: 'Payment_ID',
+                    key: 'Payment_ID',
+                    width: "25%"
+                },
+                {
+                    title: 'PM',
+                    dataIndex: 'PM',
+                    key: 'PM',
+                    width: "25%"
+                },
+                {
+                    title: 'PDate',
+                    dataIndex: 'PDate',
+                    key: 'PDate',
+                    width: "25%"
+                }
+            ];
+            for (let d in res)
+                res[d].key = d.toString();
+                ReactDOM.render(<Table columns={col} dataSource={res} bordered scroll={{ x:'100%', y:500 }}/>, document.getElementById("pay_table"));
         });
     }
 
@@ -206,6 +241,7 @@ class Loan extends Component {
                 </Form>
                 <br />
                 <div id="loan_table" />
+                <div id="pay_table" />
             </div>      
         )    
     }  

@@ -23,11 +23,6 @@ let info = [
         key: 'customerID',
         keyName: '客户ID',
         dcol:'C_ID'
-    },
-    {
-        key: 'currencyTypeIn',
-        keyName: '货币类型',
-        dcol:'CurrencyType'
     }
 ];
 let find_info = [
@@ -55,34 +50,10 @@ let find_info = [
         key: 'Balance',
         keyName: '余额',
         dcol: 'Balance'
-    },
-    {
-        key: 'Rate',
-        keyName: '利率',
-        dcol: 'Rate'
-    },
-    {
-        key: 'currencyTypeIn',
-        keyName: '货币类型',
-        dcol:'CurrencyType'
-    }
-];
-let edit_info = [
-    {
-        key: 'accountID',
-        keyName: '账户ID'
-    },
-    {
-        key: 'rateIn',
-        keyName: '新利率'
-    },
-    {
-        key: 'currencyTypeIn',
-        keyName: '新货币类型'
     }
 ];
 
-class Saving extends Component {
+class Cheque extends Component {
     constructor(props) {
         super(props);
         this.state = { add: {}, find: {}, edit: {} };
@@ -103,7 +74,7 @@ class Saving extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL createSavingAcount(';
+        let sql = 'CALL createChequeAcount(';
         for (let i = 0; i < info.length; i++) {
             sql = sql + (!b[info[i].key] ? "null" : this.wrap(b[info[i].key]));
             if (i < info.length - 1)
@@ -127,29 +98,10 @@ class Saving extends Component {
         }).bind(this));
     }
 
-    edit() {
-        let b = this.state.edit;
-        console.log(b);
-        let sql = 'CALL editSavingInfos('; 
-        for (let i = 0; i < edit_info.length; i++) {
-            sql = sql + (!b[edit_info[i].key] ? "null" : this.wrap(b[edit_info[i].key]));
-            if (i < edit_info.length - 1)
-                sql = sql + ',';
-            else
-                sql = sql + ');'
-        }
-        console.log(sql);
-        socket.emit("edit", sql);
-        socket.once("edit_resp", ((msg) => {
-            alert(msg);
-            this.find();
-        }).bind(this));
-    }
-
     find() {
         let b = this.state.find;
-        let obj = ['account_open_record,saving_account'];
-        obj.push(['saving_account.ID', 'account_open_record.ID','raw']);
+        let obj = ['account_open_record,cheque_account'];
+        obj.push(['cheque_account.ID', 'account_open_record.ID','raw']);
         for (let i = 0; i < find_info.length; i++)
             if (b[find_info[i].key])
                 obj.push([find_info[i].dcol, b[find_info[i].key]]);
@@ -183,9 +135,6 @@ class Saving extends Component {
         let find = find_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'find')}/></Form.Item>
         });
-        let edit = edit_info.map((k) => {
-            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'edit')}/></Form.Item>
-        });
         return (
             <div>
                 <h1>添加账户</h1>
@@ -193,14 +142,6 @@ class Saving extends Component {
                     {add}
                     <Form.Item>
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
-                    </Form.Item>
-                </Form>
-                <br />
-                <h1>修改信息</h1>
-                <Form layout="inline">
-                    {edit}
-                    <Form.Item>
-                        <Button type="primary" onClick={this.edit.bind(this)}>修改</Button>
                     </Form.Item>
                 </Form>
                 <br />
@@ -218,4 +159,4 @@ class Saving extends Component {
     }  
 }
   
-export default Saving;
+export default Cheque;

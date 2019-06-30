@@ -6,6 +6,7 @@ import KeyRow from './keyrow';
 import Person from './person';
 import Customer from './customer';
 import Saving from './account_saving';
+import Cheque from './account_cheque';
 
 class ContentMain extends Component {
     render() {
@@ -16,6 +17,7 @@ class ContentMain extends Component {
                     <Route exact path='/person' component={Person} />
                     <Route exact path='/customer' component={Customer} />
                     <Route exact path='/account/saving' component={Saving} />
+                    <Route exact path='/account/saving' component={Cheque} />
                     <Route exact path='/debt' component={KeyRow} />
                     <Route exact path='/stat' component={KeyRow} />
                 </Switch>

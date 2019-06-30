@@ -30,6 +30,43 @@ let info = [
         dcol:'CurrencyType'
     }
 ];
+let find_info = [
+    {
+        key: 'acountID',
+        keyName: '账户ID',
+        dcol:'ID'
+    },
+    {
+        key: 'staffID',
+        keyName: '负责人ID',
+        dcol:'E_ID'
+    },
+    {
+        key: 'bankID',
+        keyName: '支行ID',
+        dcol:'B_ID'
+    },
+    {
+        key: 'customerID',
+        keyName: '客户ID',
+        dcol:'C_ID'
+    },
+    {
+        key: 'Balance',
+        keyName: '余额',
+        dcol: 'Balance'
+    },
+    {
+        key: 'Rate',
+        keyName: '利率',
+        dcol: 'Rate'
+    },
+    {
+        key: 'currencyTypeIn',
+        keyName: '货币类型',
+        dcol:'CurrencyType'
+    }
+];
 let edit_info = [
     {
         key: 'accountID',

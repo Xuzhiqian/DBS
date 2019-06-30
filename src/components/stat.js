@@ -7,22 +7,26 @@ const col = [
     {
         title: '支行ID',
         dataIndex: 'ID',
-        key:'ID'
+        key: 'ID',
+        width:'25%'
     },
     {
         title: '时间',
         dataIndex: 'time',
-        key:'time'
+        key: 'time',
+        width:'25%'
     },
     {
         title: '贷款业务金额',
         dataIndex: 'loan',
-        key:'loan'
+        key: 'loan',
+        width:'25%'
     },
     {
         title: '用户数',
         dataIndex: 'user',
-        key:'user'
+        key: 'user',
+        width:'25%'
     }
 ];
 class Stat extends Component {
@@ -58,10 +62,11 @@ class Stat extends Component {
                 let l = [];
                 for (let y in t)
                     l.push({
-                        key:key_counter++,
+                        key: key_counter++,
+                        ID:id,
                         time: y,
                         loan: t[y].loan,
-                        user: t[y].user
+                        user: t[y].user.size
                     });
                 data.push({
                     key: key_counter++,

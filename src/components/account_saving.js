@@ -112,7 +112,7 @@ class Saving extends Component {
     find() {
         let b = this.state.find;
         let obj = ['account_open_record,saving_account'];
-        obj.push(['saving_account.ID', 'account_open_record.ID']);
+        obj.push(['saving_account.ID', 'account_open_record.ID','raw']);
         for (let i = 0; i < info.length; i++)
             if (b[info[i].key])
                 obj.push([info[i].dcol, b[info[i].key]]);

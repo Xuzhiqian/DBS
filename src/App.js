@@ -22,7 +22,7 @@ class App extends Component {
                       <Content>
                           <ContentMain/>
                       </Content>
-                      {/*<Footer>Footer</Footer>*/}
+                      <Footer style={{ textAlign: 'center' }}>DBS Lab03 ©2019 Created by XZQ</Footer>
                   </Layout>
               </Layout>
           </BrowserRouter>

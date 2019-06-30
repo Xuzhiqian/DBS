@@ -5,7 +5,7 @@ import CustomMenu from "./components/custommenu";
 import ContentMain from "./components/contentmain";
 import './App.css';
 
-const { Sider, Content } = Layout;
+const { Sider, Content, Footer} = Layout;
 
 
 class App extends Component {

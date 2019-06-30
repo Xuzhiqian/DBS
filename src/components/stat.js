@@ -52,8 +52,10 @@ class Stat extends Component {
                 for (let row in bank[id]) {
                     let r = bank[id][row];
                     let year = new Date(r.PDate).getFullYear();
-                    if (!t[year])
-                        t[year] = { time: year, loan: r.PM, user: new Set(r.C_ID) };
+                    if (!t[year]) {
+                        t[year] = { time: year, loan: r.PM, user: new Set() };
+                        t[year].user.add(r.C_ID);
+                    }
                     else {
                         t[year].loan += r.PM;
                         t[year].user.add(r.C_ID);

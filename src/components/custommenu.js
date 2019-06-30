@@ -4,12 +4,12 @@ import {Menu, Icon} from 'antd';
 const menus = [
     {
         title: '支行管理',
-        icon: 'page',
+        icon: 'bank',
         key: '/'
     },
     {
         title: '员工管理',
-        icon: 'user',
+        icon: 'idcard',
         key: '/person'
         //subs: [
          //   { key: '/page/AlertDemo', title: '弹出框', icon: '' },
@@ -17,12 +17,12 @@ const menus = [
     },
     {
         title: '客户管理',
-        icon: 'user',
+        icon: 'team',
         key: "/customer"
     },
     {
         title: '账户管理',
-        icon: 'user',
+        icon: 'account-book',
         key: '/account',
         subs: [
             { key: '/account/saving', title: '储蓄账户' },
@@ -31,12 +31,12 @@ const menus = [
     },
     {
         title: '贷款管理',
-        icon: 'user',
+        icon: 'money-collect',
         key: '/loan'
     },
     {
         title: '业务统计',
-        icon: 'pie-chart',
+        icon: 'bar-chart',
         key: '/stat'
     }
 ];

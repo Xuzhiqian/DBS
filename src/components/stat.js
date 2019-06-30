@@ -66,7 +66,7 @@ class Stat extends Component {
                         ID:id,
                         time: y,
                         loan: t[y].loan,
-                        user: t[y].user.size
+                        user: t[y].user
                     });
                 data.push({
                     key: key_counter++,

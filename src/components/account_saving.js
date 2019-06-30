@@ -34,7 +34,7 @@ let find_info = [
     {
         key: 'acountID',
         keyName: '账户ID',
-        dcol:'saving_account.ID'
+        dcol:'ID'
     },
     {
         key: 'staffID',
@@ -152,7 +152,10 @@ class Saving extends Component {
         obj.push(['saving_account.ID', 'account_open_record.ID','raw']);
         for (let i = 0; i < find_info.length; i++)
             if (b[find_info[i].key])
-                obj.push([find_info[i].dcol, b[find_info[i].key]]);
+                if (find_info[i].dcol === 'ID')
+                    obj.push(['saving_account.ID', b[find_info[i].key]]);
+                else
+                    obj.push([find_info[i].dcol, b[find_info[i].key]]);
         
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {

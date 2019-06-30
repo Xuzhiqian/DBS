@@ -66,7 +66,7 @@ class Saving extends Component {
 
     add() {
         let b = this.state.add;
-        let sql = 'CALL createSavingAccount(';
+        let sql = 'CALL createSavingAcount(';
         for (let i = 0; i < info.length; i++) {
             sql = sql + (!b[info[i].key] ? "null" : this.wrap(b[info[i].key]));
             if (i < info.length - 1)

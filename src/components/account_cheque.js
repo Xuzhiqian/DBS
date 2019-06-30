@@ -47,6 +47,11 @@ let find_info = [
         dcol:'C_ID'
     },
     {
+        key: 'Balance',
+        keyName: '余额',
+        dcol:'Balance'
+    },
+    {
         key: 'Quota',
         keyName: '透支额',
         dcol: 'Quota'
@@ -64,6 +69,17 @@ let draw_info = [
     }
 ];
 
+let save_info = [
+    {
+        key: 'acountID',
+        keyName:'账户ID'
+    },
+    {
+        key: 'moneyNum',
+        keyName:'储蓄金额'
+    }
+];
+
 let repay_info = [
     {
         key: 'acountID',
@@ -78,7 +94,7 @@ let repay_info = [
 class Cheque extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}, edit: {}, draw: {}, repay: {} };
+        this.state = { add: {}, find: {}, edit: {}, draw: {}, repay: {}, save: {} };
     }
 
     handleChange(type, e) {
@@ -137,6 +153,23 @@ class Cheque extends Component {
         }).bind(this));
     }
 
+    save() {
+        let b = this.state.save;
+        let sql = 'CALL saveMoney(';
+        for (let i = 0; i < save_info.length; i++) {
+            sql = sql + (!b[save_info[i].key] ? "null" : this.wrap(b[save_info[i].key]));
+            if (i < save_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("save", sql);
+        socket.once("save_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
     repay() {
         let b = this.state.repay;
         let sql = 'CALL repayMoney(';
@@ -156,8 +189,9 @@ class Cheque extends Component {
 
     find() {
         let b = this.state.find;
-        let obj = ['account_open_record,cheque_account'];
-        obj.push(['cheque_account.ID', 'account_open_record.ID','raw']);
+        let obj = ['account_open_record,cheque_account,bank_account'];
+        obj.push(['cheque_account.ID', 'account_open_record.ID', 'raw']);
+        obj.push(['cheque_account.ID', 'bank_account.ID','raw']);
         for (let i = 0; i < find_info.length; i++)
             if (b[find_info[i].key])
                 if (find_info[i].dcol === 'ID')
@@ -200,6 +234,9 @@ class Cheque extends Component {
         let repay = repay_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'repay')}/></Form.Item>
         });
+        let save = save_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'save')}/></Form.Item>
+        });
         return (
             <div>
                 <h1>添加账户</h1>
@@ -215,6 +252,14 @@ class Cheque extends Component {
                     {draw}
                     <Form.Item>
                         <Button type="primary" onClick={this.draw.bind(this)}>透支</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>存款</h1>
+                <Form layout="inline">
+                    {save}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.save.bind(this)}>存款</Button>
                     </Form.Item>
                 </Form>
                 <br />

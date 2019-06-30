@@ -47,9 +47,9 @@ let find_info = [
         dcol:'C_ID'
     },
     {
-        key: 'Balance',
+        key: 'Quota',
         keyName: '余额',
-        dcol: 'Balance'
+        dcol: 'Quota'
     }
 ];
 

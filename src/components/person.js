@@ -84,10 +84,17 @@ let edit_info = [
     }
 ];
 
+let mana_info = [
+    {
+        key: 'staffID',
+        keyName: '员工ID'
+    }
+];
+
 class Person extends Component {
     constructor(props) {
         super(props);
-        this.state = { add: {}, find: {}, edit: {} };
+        this.state = { add: {}, find: {}, edit: {}, mana: {}, dmana: {} };
     }
 
     handleChange(type, e) {
@@ -115,6 +122,40 @@ class Person extends Component {
         }
         socket.emit("add", sql);
         socket.once("add_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    mana() {
+        let b = this.state.mana;
+        let sql = 'CALL addManager(';
+        for (let i = 0; i < mana_info.length; i++) {
+            sql = sql + (!b[mana_info[i].key] ? "null" : this.wrap(b[mana_info[i].key]));
+            if (i < mana_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("mana", sql);
+        socket.once("mana_resp", ((msg) => {
+            alert(msg);
+            this.find();
+        }).bind(this));
+    }
+
+    dmana() {
+        let b = this.state.dmana;
+        let sql = 'CALL deleteManager(';
+        for (let i = 0; i < mana_info.length; i++) {
+            sql = sql + (!b[mana_info[i].key] ? "null" : this.wrap(b[mana_info[i].key]));
+            if (i < mana_info.length - 1)
+                sql = sql + ',';
+            else
+                sql = sql + ');'
+        }
+        socket.emit("dmana", sql);
+        socket.once("dmana_resp", ((msg) => {
             alert(msg);
             this.find();
         }).bind(this));
@@ -188,6 +229,12 @@ class Person extends Component {
         let edit = edit_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'edit')}/></Form.Item>
         });
+        let mana = mana_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'mana')}/></Form.Item>
+        });
+        let dmana = mana_info.map((k) => {
+            return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'dmana')}/></Form.Item>
+        });
         return (
             <div>
                 <h1>添加员工</h1>
@@ -195,6 +242,22 @@ class Person extends Component {
                     {add}
                     <Form.Item>
                         <Button type="primary" onClick={this.add.bind(this)}>添加</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>晋升为经理</h1>
+                <Form layout="inline">
+                    {mana}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.mana.bind(this)}>晋升</Button>
+                    </Form.Item>
+                </Form>
+                <br />
+                <h1>卸任经理</h1>
+                <Form layout="inline">
+                    {dmana}
+                    <Form.Item>
+                        <Button type="primary" onClick={this.dmana.bind(this)}>卸任</Button>
                     </Form.Item>
                 </Form>
                 <br />

@@ -150,20 +150,20 @@ class Saving extends Component {
         let b = this.state.find;
         let obj = ['account_open_record,saving_account'];
         obj.push(['saving_account.ID', 'account_open_record.ID','raw']);
-        for (let i = 0; i < info.length; i++)
-            if (b[info[i].key])
-                obj.push([info[i].dcol, b[info[i].key]]);
+        for (let i = 0; i < find_info.length; i++)
+            if (b[find_info[i].key])
+                obj.push([find_info[i].dcol, b[find_info[i].key]]);
         
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
             res = JSON.parse(res.replace(/"null"/g, '""'));
 
             let col = [];
-            for (let i = 0; i < info.length; i++)
+            for (let i = 0; i < find_info.length; i++)
                 col.push({
-                    title: info[i].dcol,
-                    dataIndex: info[i].dcol,
-                    key: info[i].dcol,
+                    title: find_info[i].dcol,
+                    dataIndex: find_info[i].dcol,
+                    key: find_info[i].dcol,
                     width:"10%"
                 });
             col.push({
@@ -180,7 +180,7 @@ class Saving extends Component {
         let add = info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'add')}/></Form.Item>
         });
-        let find = info.map((k) => {
+        let find = find_info.map((k) => {
             return <Form.Item><Input name={k.key} addonBefore={k.keyName} key={k.key} onChange={this.handleChange.bind(this, 'find')}/></Form.Item>
         });
         let edit = edit_info.map((k) => {

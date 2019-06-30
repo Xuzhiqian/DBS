@@ -172,6 +172,7 @@ class Loan extends Component {
         obj = ['loan_payed'];
         socket.emit("find", JSON.stringify(obj));
         socket.once("find_result", (res) => {
+            res = JSON.parse(res);
             let col = [
                 {
                     title: 'LO_ID',

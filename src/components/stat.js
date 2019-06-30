@@ -86,10 +86,6 @@ class Stat extends Component {
                 <h1>贷款业务统计（年度）</h1>
                 <br />
                 <div id="table" />
-                <br />
-                <h1>储蓄业务统计（年度）</h1>
-                <br />
-                <div id="table2" />
             </div>      
         )    
     }  

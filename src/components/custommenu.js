@@ -32,7 +32,7 @@ const menus = [
     {
         title: '贷款管理',
         icon: 'user',
-        key: '/debt'
+        key: '/loan'
     },
     {
         title: '业务统计',

@@ -7,6 +7,7 @@ import Person from './person';
 import Customer from './customer';
 import Saving from './account_saving';
 import Cheque from './account_cheque';
+import Loan from './loan';
 
 class ContentMain extends Component {
     render() {
@@ -18,7 +19,7 @@ class ContentMain extends Component {
                     <Route exact path='/customer' component={Customer} />
                     <Route exact path='/account/saving' component={Saving} />
                     <Route exact path='/account/cheque' component={Cheque} />
-                    <Route exact path='/debt' component={KeyRow} />
+                    <Route exact path='/loan' component={Loan} />
                     <Route exact path='/stat' component={KeyRow} />
                 </Switch>
             </div>
